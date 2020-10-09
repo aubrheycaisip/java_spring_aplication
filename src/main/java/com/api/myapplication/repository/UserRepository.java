@@ -11,4 +11,5 @@ public interface UserRepository extends CrudRepository<User, Long>{
 
 	@Query(value="SELECT * FROM user where username= :username", nativeQuery=true)
 	public User getUserByUsername(String username);
+	
 }

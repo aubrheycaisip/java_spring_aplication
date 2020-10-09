@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.api.myapplication.emuns.RoleName;
+import com.api.myapplication.entity.Admin;
 import com.api.myapplication.entity.Role;
+import com.api.myapplication.repository.AdminRepository;
 import com.api.myapplication.repository.RoleRepository;
 
 @Service
@@ -18,6 +20,9 @@ public class DataPopulator implements InitializingBean{
 
 	@Autowired
 	private RoleRepository roleRepo;
+	
+	@Autowired
+	private AdminRepository adminRepository;
 	
 	@Override
 	@Transactional
@@ -27,6 +32,9 @@ public class DataPopulator implements InitializingBean{
         } else {
         	createRoles();
         }
+		if(adminRepository.getUserAdministrator().size() <= 0) {
+			generateAdminUser();
+		}
 	}
 	public void createRoles() {
         List<Role> roles = new ArrayList<>();
@@ -35,11 +43,25 @@ public class DataPopulator implements InitializingBean{
         role.setAuthority(RoleName.ADMIN);
         roles.add(role);
 
-        Role bu = new Role();
-        bu.setAuthority(RoleName.USER);
-        roles.add(bu);
+        Role seller = new Role();
+        seller.setAuthority(RoleName.SELLER);
+        roles.add(seller);
+        
+        Role buyer = new Role();
+        buyer.setAuthority(RoleName.BUYER);
+        roles.add(buyer);
 
         roleRepo.saveAll(roles);
     }
+	public void generateAdminUser() {
+		Admin user = Admin.builder()
+				.firstName("Admin")
+				.lastName("Admin")
+				.email("admin@admin.com")
+				.username("admin123")
+				.password("admin123")
+				.build();
+		adminRepository.save(user);
+	}
 
 }
