@@ -1,7 +1,6 @@
 package com.api.myapplication.security;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -12,18 +11,22 @@ import com.api.myapplication.entity.User;
 
 public class MyUserDetails implements UserDetails {
 
+	private static final long serialVersionUID = 1L;
+	
 	private User user;
+	private Collection<? extends GrantedAuthority> authorities;
 
 	public MyUserDetails(User user) {
 		this.user = user;
+		this.authorities = user.getRoles().stream()
+				.map(role -> new SimpleGrantedAuthority(role.getAuthority().name())).collect(Collectors.toList());
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
-		List<GrantedAuthority> authorities = user.getRoles().stream()
-				.map(role -> new SimpleGrantedAuthority(role.getAuthority().name())).collect(Collectors.toList());
 		return authorities;
+		
 	}
 
 	@Override
@@ -60,6 +63,10 @@ public class MyUserDetails implements UserDetails {
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
 		return user.isEnabled();
+	}
+	
+	public Long getId() {
+		return user.getId();
 	}
 
 }

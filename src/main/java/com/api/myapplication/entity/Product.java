@@ -45,11 +45,15 @@ public class Product extends DateAudit{
 	@JsonBackReference
 	private Seller seller;
 	
-	public Product(String productName, Double amount, Integer quantity, Seller seller) {
+	@Column(name = "image_display_url")
+	private String imageDisplayUrl;
+	
+	public Product(String productName, Double amount, Integer quantity, String imageDisplayUrl, Seller seller) {
 		this.productName = productName;
 		this.amount = amount;
 		this.quantity = quantity;
 		this.seller = seller;
+		this.imageDisplayUrl = imageDisplayUrl;
 	}
 	
 	public Product() {

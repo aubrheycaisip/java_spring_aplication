@@ -2,7 +2,7 @@ package com.api.myapplication.emuns;
 
 public enum RoleName {
 
-	SELLER,
-	BUYER,
-	ADMIN
+	ROLE_SELLER,
+	ROLE_BUYER,
+	ROLE_ADMIN
 }

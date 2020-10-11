@@ -31,7 +31,7 @@ public class SellerService {
 				.password(request.getPassword()).build();
 		sellerRepository.save(seller);
 		List<Product> products = request.getProducts().stream()
-				.map(x -> new Product(x.getProductName(), x.getAmount(), x.getQuantity(), seller))
+				.map(x -> new Product(x.getProductName(), x.getAmount(), x.getQuantity(), x.getImageDisplayUrl(), seller))
 				.collect(Collectors.toList());
 		productRepository.saveAll(products);
 		seller.setProducts(products);

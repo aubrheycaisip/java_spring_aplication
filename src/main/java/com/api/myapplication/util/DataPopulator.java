@@ -40,15 +40,15 @@ public class DataPopulator implements InitializingBean{
         List<Role> roles = new ArrayList<>();
 
         Role role = new Role();
-        role.setAuthority(RoleName.ADMIN);
+        role.setAuthority(RoleName.ROLE_ADMIN);
         roles.add(role);
 
         Role seller = new Role();
-        seller.setAuthority(RoleName.SELLER);
+        seller.setAuthority(RoleName.ROLE_SELLER);
         roles.add(seller);
         
         Role buyer = new Role();
-        buyer.setAuthority(RoleName.BUYER);
+        buyer.setAuthority(RoleName.ROLE_BUYER);
         roles.add(buyer);
 
         roleRepo.saveAll(roles);
